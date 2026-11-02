@@ -61,20 +61,48 @@ a{color:var(--ac)}.bar{height:8px;background:var(--bd);border-radius:9px;overflo
 .cbf input{flex:1;min-width:0;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);padding:8px 10px;font:inherit}
 .cbf button{border:0;background:var(--ac);color:#fff;border-radius:10px;padding:0 14px;font:inherit;cursor:pointer}
 .cbf button:disabled{opacity:.5}
+
+.card .bt{margin:0 0 2px;font-size:1.12em}
+.card .bk{margin:0 0 8px;color:var(--mu);font-size:.9em}
+.card.mi{border-inline-start:4px solid var(--ac2)}
+.bi{padding:10px 0;border-top:1px dashed var(--bd)}
+.bi:first-of-type{border-top:0}
+.bi:last-child{padding-bottom:0}
+.card.blk>.bi:only-of-type{padding:0}
+.bi h4{display:inline;margin:0;color:var(--ac);font-size:1.02em}
+.bi p{margin-top:3px}
+.stm .bk{display:none}
+
+#adm{position:absolute;top:4px;left:4px;z-index:5;font:700 11px sans-serif;letter-spacing:.6px;padding:3px 9px;border-radius:8px;border:1px solid #fff6;background:#0003;color:#fff;cursor:pointer}
+.ov{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:#0009;padding:14px}
+.ov>div{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:16px;padding:18px 20px;width:min(480px,100%);max-height:88vh;overflow:auto;box-shadow:0 12px 40px #0006}
+.ov h3{margin:0 0 10px;color:var(--ac)}
+.ov input,.ov textarea{width:100%;box-sizing:border-box;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);padding:9px 10px;font:inherit;margin-bottom:8px}
+.ov textarea{min-height:80px;resize:vertical}
+.ov .rw{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.ov .am{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--bd);border-radius:10px;padding:6px 8px;margin-bottom:6px;font-size:.9em}
+.ov .am span{flex:1;word-break:break-word;white-space:pre-wrap}
+.ov .am button{border:0;background:var(--bad);color:#fff;border-radius:8px;cursor:pointer;padding:2px 8px}
+.ov .er{color:var(--bad);min-height:1.3em;font-size:.9em;margin-bottom:6px}
+.ov hr{border:0;border-top:1px solid var(--bd);margin:14px 0}
 </style></head><body>
 <header>
 <div class="logo" aria-hidden="true">⚖️</div><h1><span id="ttl">אזרחות מאסטר | למידה</span><small>לומדים בעל פה, בקלות</small></h1>
 <div class="acc" role="group" aria-label="נגישות"><button id="th" aria-label="מצב בהיר או כהה">🌓 בהיר/כהה</button><button id="fp" aria-label="הגדלת טקסט">א+</button><button id="fm" aria-label="הקטנת טקסט">א−</button><button id="mo" aria-label="ביטול אנימציות">⏸ אנימציה</button></div></header>
 <nav id="nav" role="tablist"></nav><main id="m"></main><footer>Made by <b>Elad</b> | 2026©️<div id="vc" style="direction:rtl;margin-top:8px">👁 מספר מבקרים: <b id="vn">…</b></div></footer>
 <div id="cb"><button id="cbb" aria-label="פתיחת צ'אט">💬<i id="cbn" hidden></i></button><section id="cbp" hidden role="dialog" aria-label="צ'אט כללי"><div class="ch"><b>💬 צ'אט כללי</b><button id="cbx" aria-label="סגירה">✕</button></div><input id="cbname" maxlength="20" placeholder="השם שלכם (אופציונלי)" aria-label="שם"><div id="cbl"></div><div id="cbs"></div><div class="cbf"><input id="cbi" maxlength="300" placeholder="כתבו הודעה…" aria-label="הודעה"><button id="cbg">שלח</button></div></section></div>
+<button id="adm" aria-label="כניסת מנהל">ADMIN</button>
 <script>
+const FB={db:'https://ezrachut-master-default-rtdb.europe-west1.firebasedatabase.app',key:'AIzaSyD2bm_U9I6Ou_5kGddWbYwaHW6mvCunlhg',admin:'elad@ezrachut-master.com'};
 const G=[
 {id:"nat",t:"🏳️ הרעיון הלאומי",i:[
 ["לאום","קבוצה שרוצה הגדרה עצמית: מדינה עצמאית, על יסודות אתניים או אזרחיים."],
 ["קבוצה אתנית","קבוצה עם יסודות משותפים שלא בוחרים (מוצא, דת, שפה, תרבות, היסטוריה). לא שואפת להגדרה עצמית."],
 ["לאומיות","תחושת שייכות וגאווה של בני הלאום, שמתבטאת בחיים במדינה משותפת."],
 ["לאומיות אתנית־תרבותית","מבוססת על יסודות שנולדים לתוכם. קיימת לפני המדינה והיא שיוצרת אותה. דוגמה: ישראל.",["אזרחות ולאום לא חייבים להתאים: ערבי ישראלי = לאום ערבי + אזרחות ישראלית."]],
-["לאומיות אזרחית","מבוססת על ערכים שבוחרים (חירות, שוויון). נוצרת אחרי המדינה, והמדינה יוצרת אותה. דוגמה: ארה״ב.",["כל האזרחים הם בני אותו לאום."]]]},
+["לאומיות אזרחית","מבוססת על ערכים שבוחרים (חירות, שוויון). נוצרת אחרי המדינה, והמדינה יוצרת אותה. דוגמה: ארה״ב.",["כל האזרחים הם בני אותו לאום."]],
+["הבדלים בין לאום לקבוצה אתנית","שני הבדלים עיקריים:",["שאיפה: לאום שואף להגדרה עצמית ולמימוש היסודות שלו במדינה עצמאית. קבוצה אתנית לא שואפת להגדרה עצמית.","יסודות: לאום יכול להתבסס על יסודות אתניים (שלא בוחרים) או על יסודות אזרחיים (שבוחרים). קבוצה אתנית מבוססת רק על יסודות שלא בוחרים."],1],
+["הבדלים בין לאומיות אתנית־תרבותית לאזרחית","שלושה הבדלים עיקריים:",["יסודות: באתנית־תרבותית – מוצא, תרבות, שפה ודת (נולדים לתוכם). באזרחית – רצון לחיות יחד לפי ערכים שבוחרים (חירות, שוויון).","זמן: אתנית־תרבותית קיימת לפני המדינה והלאום יוצר אותה (הלאום היהודי הקים את ישראל). אזרחית נוצרת אחרי שהמדינה קמה, והמדינה יוצרת אותה (ארה״ב).","קשר לאזרחות: באתנית־תרבותית לא חייב להיות קשר בין אזרחות ללאום (ערבי ישראלי). באזרחית כל האזרחים הם בני אותו לאום (אמריקאי)."],1]]},
 {id:"dem",t:"🗳️ דמוקרטיה ובחירות",i:[
 ["חירות","כל אדם נולד חופשי ומנהל את חייו כרצונו, כל עוד אינו פוגע בזולתו."],
 ["שוויון","כל בני האדם שווים בערכם ובזכויותיהם. אין אפליה."],
@@ -94,23 +122,23 @@ const G=[
 ["הכרעת הרוב","החלטות לפי רצון הרוב. גם המיעוט מחויב, אבל אסור לפגוע בזכויותיו.",["חשיבות: מייצגת את רוב האזרחים, מחייבת את כולם ושומרת על יציבות."]],
 ["עריצות הרוב","הרוב משתמש בכוחו לפגוע בלי הצדקה בזכויות האדם והמיעוט."],
 ["הכרעת רוב לגיטימית / לא לגיטימית","לגיטימית: לפי כללי הדמוקרטיה ובלי לפגוע בזכויות. לא לגיטימית: פוגעת בזכויות האדם והמיעוט."],
-["סוגי רוב","רגיל: רוב המצביעים. מוחלט: 61 מתוך 120. מיוחד: 80 (שני שלישים)."]]},
+["סוגי רוב","שלושה סוגי רוב לקבלת החלטה: רגיל, מוחלט ומיוחד (מיוחס). לכל סוג נדרש מספר קולות אחר.",["רוב רגיל: החלטה שמתקבלת לפי מספר הקולות הרב ביותר של המשתתפים בהצבעה. לדוגמה – בכנסת (120 חברי כנסת) ההחלטה מתקבלת לפי רוב המצביעים מתוך מי שהיו בהצבעה.","רוב מוחלט: החלטה שמתקבלת בעד יותר מ־50% מבעלי זכות ההצבעה. לדוגמה – בכנסת נדרשים לפחות 61 חברי כנסת בעד.","רוב מיוחד / מיוחס: החלטה שמתקבלת בעד לא פחות מ־80 מבעלי זכות ההצבעה. לדוגמה – בכנסת נדרשים לפחות 80 חברי כנסת בעד (שני שלישים)."]]]},
 {id:"nr",t:"🛡️ זכויות טבעיות",i:[
 ["זכויות טבעיות (זכויות האדם)","זכויות שמגיעות לאדם מעצם היותו אדם, מרגע לידתו. השלטון לא רשאי להגבילן ועליו להגן עליהן.",["זכויות האזרח = הזכויות הטבעיות + זכויות פוליטיות."]],
 ["1. קניין","הזכות להיות בעל רכוש, לשמור עליו וליהנות ממנו בלי שייקחו אותו.",["חומרי: בית, כסף, רכב.","רוחני: יצירות, המצאות."]],
 ["2. שוויון","כולם שווים בערכם ובזכויותיהם. יחס שווה בלי אפליה על רקע דת, מין, מוצא, לאום, מראה, מוגבלות או השקפה.",["אפליה פסולה: יחס שונה בלי סיבה מוצדקת.","הבחנה: יחס שונה בגלל צרכים מיוחדים או דרישות רלוונטיות (קשישים, נכים, כישורים).","העדפה מתקנת: יחס שונה כדי לתקן קיפוח מהעבר ולצמצם פערים.","הבחנה והעדפה מתקנת אינן אפליה, כי יש להן סיבה מוצדקת."]],
-["3. הליך הוגן","מי שנמצא בהליך משפטי לא ייפגע מעבר לנדרש לחקירה ולמשפט.",["חיפוש בבית רק עם צו בית משפט.","מעצר עד 24 שעות לפני הבאה לשופט.","לדעת במה נאשמים.","ייצוג בידי עורך דין.","אין עונש בלי משפט.","משפט פומבי.","זכות ערעור."]],
+["3. הליך הוגן","כל אדם זכאי למשפט צודק והוגן. האדם נחשב חף מפשע כל עוד לא הוכחה אשמתו במתן פסק דין חלוט.",["מי שנמצא בהליך משפטי (חשד, חקירה, מעצר, משפט) לא ייפגע מעבר למה שנדרש לחקירה ולמשפט.","חיפוש בבית רק עם צו בית משפט.","מעצר עד 24 שעות לפני הבאה לשופט.","לדעת במה נאשמים.","ייצוג בידי עורך דין.","אין עונש בלי משפט.","משפט פומבי.","זכות ערעור."]],
 ["4. חירות","חופש לפעול ולבחור כרצונך, כל עוד לא פוגעים באחר, בחוק ובערכי המדינה.",["חופש המחשבה והמצפון: לגבש דעות וערכים.","חופש הביטוי: להביע דעות ורגשות (גם לבוש, הפגנה, שביתה).","חופש התנועה: לנוע בארץ, לצאת ולחזור.","חופש הדת: להאמין ולקיים פולחן.","חופש מדת: לא להאמין ולא להיכפות.","חופש ההתאגדות: להקים ארגון, עמותה או מפלגה.","חופש העיסוק: לבחור מקצוע ומקום עבודה."]],
 ["5. כבוד","הזכות לא להיות מושפל או מעליב, פיזית או מילולית.",["שם טוב: שלא יפרסמו עליך מידע שקרי ומכפיש.","פרטיות: בלי חשיפה, חדירה, איסוף או פרסום מידע בלי הסכמה.","בטקסט: להציג כל זכות בנפרד ולהסביר את הספציפית."]],
 ["6. חיים וביטחון","לחיות בלי חשש מפגיעה גופנית או נפשית. המדינה חייבת להגן."]]},
 {id:"oth",t:"⚖️ זכויות נוספות וחובות",i:[
-["זכויות פוליטיות","חלק מזכויות האזרח: לבחור ולהיבחר, להתאגד פוליטית ולמחות נגד השלטון."],
+["זכויות פוליטיות","חלק מזכויות האזרח. מאפשרות לאדם להיות מעורב פוליטית, לפקח על השלטון ולהגביל את כוחו.",["הזכות לבחור: להיות שותף ולהשפיע על בחירת השלטון במדינה.","הזכות להיבחר: להציג מועמדות ולהיבחר לשלטון.","זכות המחאה: לבטא מחאה על אופן הפעולה והתנהלות השלטון.","התאגדות פוליטית: להתאגד פוליטית ולמתוח ביקורת על השלטון."]],
 ["זכויות קבוצה / מיעוט","המדינה מעניקה למיעוט זכויות לשמור על זהותו.",["חינוך משלו.","שפה רשמית.","חופש דת ופולחן."]],
 ["שקלול ואיזון","הזכויות יחסיות ומתנגשות. שוקלים אותן כך שכל זכות תיפגע כמה שפחות."],
 ["חובות האדם כאדם","להכיר בזכויות אחרים, לא לפגוע בהן, להיות סובלני ולהתריע על פגיעה."],
 ["חובות האזרח","ציות לחוק, תשלום מיסים, השתתפות בבחירות, דיווח על אי־צדק ופעולות לא חוקיות."],
 ["הקשר בין זכויות לחובות","זכות נשללת רק אם יש קשר ישיר לחובה שלא מולאה. מי שלא ממלא חובה בחוק נענש בחוק."]]}];
-const ALL=G.flatMap(g=>g.i.map(x=>({g:g.t,q:x[0],a:x[1],s:x[2]||[]})));
+const ALL=G.flatMap(g=>g.i.filter(x=>x[3]!==1).map(x=>({g:g.t,q:x[0],a:x[1],s:x[2]||[]})));
 const $=s=>document.querySelector(s),R=document.documentElement,M=$("#m");
 const sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const sh=a=>[...a].sort(()=>Math.random()-.5);
@@ -150,13 +178,40 @@ M.innerHTML=`<div class="sec"><h2>שאלת בגרות</h2></div><div class="card
 <textarea id="ta" placeholder="כתבו כאן את התשובה…" aria-label="תשובה"></textarea><div class="row" style="margin-top:10px"><button class="pri" id="sa">הצג הגדרות לבדיקה</button><button class="chip" id="nw">שאלה אחרת</button></div><div id="ans"></div>`;
 $("#nw").onclick=bag;$("#sa").onclick=()=>{$("#ans").innerHTML=ALL.filter(x=>c[1].includes(x.q.replace(/^\d\. /,""))||(c[1].includes("עריצות")&&x.q=="עריצות הרוב")||(c[1].includes("הכרעת הרוב")&&x.q=="הכרעת הרוב")).map(x=>`<div class="card"><h3>${x.q}</h3><p>${x.a}</p></div>`).join("")||"<p>בדקו מול סעיפי הזכויות.</p>"}}
 function links(){M.innerHTML=`<div class="sec"><h2>מבחני בגרות ופתרונות</h2></div><div class="card"><h3>כל הבגרויות באזרחות עם פתרונות</h3><p>אתר גבע: שאלוני בגרות ופתרונות מפורטים, לפי מועדים.</p><br><a class="pri" style="display:inline-block;text-decoration:none;background:var(--ac);color:#fff;border-radius:12px;padding:10px 18px" href="https://www.geva.co.il/bagrut_solution/citizenship/" target="_blank" rel="noopener">מעבר לבגרויות באזרחות ←</a></div><div class="card"><p class="mu">טיפ: פתרו בגרות אחת בכל פעם בלי חומר עזר, ואז בדקו את עצמכם מול הפתרון ולפי מבנה זהבה.</p></div>`}
-function TY(x,id){const q=x[0];if(/^\d\. /.test(q))return"זכות טבעית";const r=[[/^זכויות טבעיות/,"הגדרה"],[/הקשר בין/,"כלל יסוד"],[/חובות/,"חובה"],[/^זכויות פוליטיות/,"זכות אזרח"],[/קבוצה/,"זכות קבוצה"],[/שקלול/,"מנגנון הכרעה"],[/לאומיות/,"סוג לאומיות"],[/^(חירות|שוויון)$/,"ערך דמוקרטי"],[/המתח/,"מתח בין ערכים"],[/תנאי/,"תנאי בחירות"],[/שיטת|יתרונות|חסרונות|אחוז/,"שיטת הבחירות"],[/סוגי רוב/,"סוג רוב"],[/עריצות|לגיטימית/,"מושג בהכרעת הרוב"],[/תרבות/,"מושג דמוקרטי"]];for(const[a,b]of r)if(a.test(q))return b;return id=="nat"?"מושג לאומי":"עקרון דמוקרטי"}
-function ST(s){const r=[[/^הבחנה והעדפה מתקנת אינן/,""],[/^אפליה פסולה/,"⛔ אפליה"],[/^(הבחנה|העדפה מתקנת)/,"📌 מדיניות"],[/^חופש/,"זכות נגזרת מחירות"],[/^(שם טוב|פרטיות)/,"זכות נגזרת מכבוד"],[/^(חומרי|רוחני)/,"סוג קניין"],[/^(כלליות|חשאיות|שוויוניות|מחזוריות|התמודדות)/,"תנאי"],[/^(פוליטי|חברתי|חינוך)/,"ביטוי פלורליזם"],[/^(ארצית|יחסית|רשימתית)/,"מאפיין השיטה"]];for(const[a,b]of r)if(a.test(s))return b?`<span class="tg">${b}</span>`:"";return""}
+function TY(x,id){const q=x[0];if(/^\d\. /.test(q))return"זכות טבעית";const r=[[/^הבדלים/,"השוואה"],[/^זכויות טבעיות/,"הגדרה"],[/הקשר בין/,"כלל יסוד"],[/חובות/,"חובה"],[/^זכויות פוליטיות/,"זכות אזרח"],[/^זכויות קבוצה/,"זכות קבוצה"],[/שקלול/,"מנגנון הכרעה"],[/^לאומיות /,"סוג לאומיות"],[/^(חירות|שוויון)$/,"ערך דמוקרטי"],[/המתח/,"מתח בין ערכים"],[/תנאי/,"תנאי בחירות"],[/שיטת|יתרונות|חסרונות|אחוז/,"שיטת הבחירות"],[/סוגי רוב/,"סוג רוב"],[/עריצות|לגיטימית/,"מושג בהכרעת הרוב"],[/תרבות/,"מושג דמוקרטי"]];for(const[a,b]of r)if(a.test(q))return b;return id=="nat"?"מושג לאומי":"עקרון דמוקרטי"}
+function ST(s){const r=[[/^(הזכות לבחור|הזכות להיבחר|זכות המחאה|התאגדות פוליטית)/,"זכות פוליטית"],[/^הבחנה והעדפה מתקנת אינן/,""],[/^אפליה פסולה/,"⛔ אפליה"],[/^(הבחנה|העדפה מתקנת)/,"📌 מדיניות"],[/^חופש/,"זכות נגזרת מחירות"],[/^(שם טוב|פרטיות)/,"זכות נגזרת מכבוד"],[/^(חומרי|רוחני)/,"סוג קניין"],[/^(כלליות|חשאיות|שוויוניות|מחזוריות|התמודדות)/,"תנאי"],[/^(פוליטי|חברתי|חינוך)/,"ביטוי פלורליזם"],[/^(ארצית|יחסית|רשימתית)/,"מאפיין השיטה"]];for(const[a,b]of r)if(a.test(s))return b?`<span class="tg">${b}</span>`:"";return""}
 ALL.forEach(x=>{x.t=TY([x.q],G.find(g=>g.t==x.g).id)});
 const DEF={};ALL.forEach(x=>{DEF[x.q.replace(/^\d\. /,"")]={a:x.a,t:x.t};x.s.forEach(s=>{const m=s.split(":");if(m.length>1&&m[0].length<25)DEF[m[0]]={a:m.slice(1).join(":").trim(),t:ST(s).replace(/<[^>]+>/g,"").trim()||"מושג"}})});
 const SC=[["אדם נשלח לכלא ללא משפט.","הליך הוגן"],["המשטרה ערכה חיפוש בביתו של חשוד ללא צו בית משפט.","הליך הוגן"],["חשוד נעצר והוחזק ארבעה ימים בלי שהובא בפני שופט.","הליך הוגן"],["מעסיק סירב לקבל אישה לעבודה רק בגלל מינה, אף שהייתה מתאימה.","אפליה פסולה"],["חברה סירבה לקבל מועמד לעבודה בגלל צבע עורו.","אפליה פסולה"],["המדינה מחייבת נגישות לנכים בכל בניין ציבורי חדש.","הבחנה"],["מכרז לתפקיד טייס דורש ראייה תקינה.","הבחנה"],["מכללה שומרת מכסת מקומות לתושבי פריפריה שבעבר קופחו.","העדפה מתקנת"],["הממשלה מעניקה מלגות לבני קבוצה שהופלתה היסטורית.","העדפה מתקנת"],["עיתון פרסם שקר על שר והכפיש את שמו.","שם טוב"],["אדם צילם את שכנו בתוך ביתו ופרסם את התמונות ללא הסכמתו.","פרטיות"],["מורה השפילה תלמיד מול כל הכיתה.","כבוד"],["שכן בנה מחסן בתוך החצר של אדם בלי רשותו.","קניין"],["אדם העתיק יצירה של סופר ומכר אותה כשלו.","קניין"],["אדם הותקף ברחוב והמדינה לא סיפקה לו הגנה.","חיים וביטחון"],["אזרח נמנע ממנו לצאת מהמדינה ללא סיבה חוקית.","חופש התנועה"],["נאסר על אזרחים להפגין נגד הממשלה.","חופש הביטוי"],["עיתונאי נעצר בגלל ביקורת על הממשלה.","חופש הביטוי"],["אדם נאלץ לקיים טקסים דתיים שאינו מאמין בהם.","חופש מדת"],["קהילה מנועה מלקיים תפילה בציבור.","חופש הדת"],["עובדים הקימו ועד עובדים כדי להגן על תנאיהם.","חופש ההתאגדות"],["אדם החליט לפתוח עסק בתחום שבחר.","חופש העיסוק"],["אדם מגבש לעצמו דעות וערכים בנושאים חברתיים ומדיניים.","חופש המחשבה והמצפון"],["הכנסת חוקקה בהחלטת הרוב חוק שמונע ממיעוט לקיים את תרבותו.","עריצות הרוב"],["מפלגות וארגונים רבים בעלי דעות שונות פועלים בחופשיות.","פלורליזם"],["אדם מאפשר לאחר לבטא דעה שהוא מתנגד לה.","סובלנות"],["כל המפלגות מקבלות את תוצאות הבחירות ומצייתות לחוק.","הסכמיות"],["בית משפט מכריע בין חופש ההפגנה לבין זכות השכנים לשקט.","שקלול ואיזון"],["מיעוט דובר שפה אחרת מקבל מוסדות חינוך משלו.","זכויות קבוצה / מיעוט"],["אזרחית מקימה מפלגה ומתמודדת בבחירות.","זכויות פוליטיות"]];
 const ANS=[...new Set(SC.map(s=>s[1]))],rn=a=>a[Math.floor(Math.random()*a.length)];
-function learn(){const g=G.find(x=>x.id==gid);M.innerHTML=`<div class="chips">${G.map(x=>`<button class="chip ${x.id==gid?"on":""}" data-g="${x.id}">${x.t}</button>`).join("")}</div><p class="mu">התגית בכל כרטיס אומרת מה זה: זכות טבעית, עקרון דמוקרטי, מדיניות, חובה וכו׳.</p>`+g.i.map((x,k)=>`<div class="card" style="animation-delay:${k*50}ms"><span class="tg">${TY(x,g.id)}</span><h3 style="display:inline">${x[0]}</h3><p>${x[1]}</p>${x[2]?`<div class="sub">${x[2].map(s=>"• "+ST(s)+s).join("<br>")}</div>`:""}</div>`).join("");M.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{gid=c.dataset.g;learn()})}
+const BLK={
+nat:[
+{t:"לאום וקבוצה אתנית",k:"שתי קבוצות עם יסודות משותפים. ההבדל ביניהן: לאום שואף למדינה עצמאית, קבוצה אתנית לא.",i:["לאום","קבוצה אתנית","הבדלים בין לאום לקבוצה אתנית"]},
+{t:"לאומיות: אתנית־תרבותית מול אזרחית",k:"שתי דרכים להגדיר לאומיות. דוגמאות: ישראל (אתנית־תרבותית) וארה״ב (אזרחית).",i:["לאומיות","לאומיות אתנית־תרבותית","לאומיות אזרחית","הבדלים בין לאומיות אתנית־תרבותית לאזרחית"]}],
+dem:[
+{t:"חירות, שוויון והמתח ביניהם",k:"שני ערכי היסוד של הדמוקרטיה. כשמנסים לממש את שניהם הם מתנגשים: יותר שוויון פירושו לפעמים פחות חירות.",i:["חירות","שוויון","המתח בין חירות לשוויון"]},
+{t:"שלטון העם ובחירות דמוקרטיות",k:"העם הוא הריבון, והבחירות הן הדרך שבה הוא מפעיל את הסמכות. כדי שיהיו דמוקרטיות צריכים 5 תנאים.",i:["שלטון העם","5 תנאי בחירות דמוקרטיות"]},
+{t:"שיטת הבחירות בישראל",k:"איך הקולות הופכים למושבים בכנסת, ומה טוב ומה בעייתי בשיטה.",i:["שיטת הבחירות בישראל","מטרת אחוז החסימה","יתרונות השיטה","חסרונות השיטה"]}],
+pri:[
+{t:"פלורליזם",k:"ההכרה בשונות בין קבוצות, ולמה היא חיונית לדמוקרטיה.",i:["פלורליזם","חשיבות הפלורליזם"]},
+{t:"סובלנות",i:["סובלנות"]},
+{t:"הסכמיות ותרבות פוליטית",k:"מה מחבר בין הקבוצות השונות בחברה, ואיך זה בא לידי ביטוי בהתנהגות.",i:["הסכמיות","תרבות פוליטית דמוקרטית"]},
+{t:"הכרעת הרוב וגבולותיה",k:"ההחלטות מתקבלות לפי הרוב, אבל יש גבול: אסור לפגוע בזכויות המיעוט.",i:["הכרעת הרוב","עריצות הרוב","הכרעת רוב לגיטימית / לא לגיטימית","סוגי רוב"]}],
+nr:[
+{t:"זכויות טבעיות",i:["זכויות טבעיות (זכויות האדם)"]},
+{t:"קניין",i:["1. קניין"]},
+{t:"שוויון",i:["2. שוויון"]},
+{t:"הליך הוגן",i:["3. הליך הוגן"]},
+{t:"חירות",i:["4. חירות"]},
+{t:"כבוד",i:["5. כבוד"]},
+{t:"חיים וביטחון",i:["6. חיים וביטחון"]}],
+oth:[
+{t:"זכויות פוליטיות וזכויות קבוצה",k:"זכויות שמתווספות לזכויות הטבעיות: לאדם כאזרח, ולמיעוט כקבוצה.",i:["זכויות פוליטיות","זכויות קבוצה / מיעוט"]},
+{t:"שקלול ואיזון",i:["שקלול ואיזון"]},
+{t:"חובות והקשר בין זכויות לחובות",k:"לכל זכות יש חובה מקבילה. שוללים זכות רק אם יש קשר ישיר לחובה שלא מולאה.",i:["חובות האדם כאדם","חובות האזרח","הקשר בין זכויות לחובות"]}]};
+function learn(){const g=G.find(x=>x.id==gid),by={};g.i.forEach(x=>by[x[0]]=x);const it=x=>`<div class="bi"><span class="tg">${TY(x,g.id)}</span><h4>${x[0]}</h4><p>${x[1]}</p>${x[2]?`<div class="sub">${x[2].map(s=>"• "+ST(s)+s).join("<br>")}</div>`:""}</div>`;
+M.innerHTML=`<div class="chips">${G.map(x=>`<button class="chip ${x.id==gid?"on":""}" data-g="${x.id}">${x.t}</button>`).join("")}</div><p class="mu">כל בלוק מקבץ מושגים שקשורים זה לזה. התגית בכל חלק אומרת מה זה: זכות טבעית, עקרון דמוקרטי, מדיניות, חובה וכו׳.</p>`+BLK[gid].map((b,k)=>{const m=b.i.length>1;return`<div class="card blk${m?" mi":""}" style="animation-delay:${k*50}ms">${m?`<h3 class="bt">${b.t}</h3>${b.k?`<p class="bk">${b.k}</p>`:""}`:""}${b.i.map(n=>it(by[n])).join("")}</div>`}).join("");
+M.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{gid=c.dataset.g;learn()})}
 const DECK=ALL.concat(SC.map(s=>({q:s[0],a:s[1]+": "+DEF[s[1]].a,s:[],t:"תרחיש · "+DEF[s[1]].t,g:"תרחיש"})));let dk=[],di=0;
 function cards(){if(!dk.length)dk=sh(DECK);const c=dk[di];M.innerHTML=`<div class="sec"><h2>כרטיסיות (${DECK.length})</h2></div><div class="bar"><i style="width:${(di+1)/dk.length*100}%"></i></div><p style="text-align:center;color:var(--mu)">${di+1} / ${dk.length} · ${c.g}</p><div class="fc" id="fc" tabindex="0" role="button" aria-label="הפוך כרטיסייה"><div class="fi"><div class="fa" style="font-size:${c.q.length>40?"1.1em":"1.5em"}">${c.q}</div><div class="fb"><div><span class="tg">${c.t}</span><br>${c.a}${c.s.length?`<div class="sub" style="text-align:start">${c.s.map(s=>ST(s)+s).join("<br>")}</div>`:""}</div></div></div></div><div class="row"><button class="pri" id="pv">→ הקודם</button><button class="pri" id="nx">הבא ←</button><button class="chip" id="shf">🔀 ערבוב</button></div>`;const f=$("#fc");f.onclick=()=>f.classList.toggle("flip");f.onkeydown=e=>{if(e.key=="Enter"||e.key==" "){e.preventDefault();f.click()}};$("#nx").onclick=()=>{di=(di+1)%dk.length;cards()};$("#pv").onclick=()=>{di=(di-1+dk.length)%dk.length;cards()};$("#shf").onclick=()=>{dk=sh(DECK);di=0;cards()}}
 function mk(){const k=Math.random(),x=rn(ALL);if(k<.4){const s=rn(SC);return{p:"איזו זכות או איזה עיקרון בא לידי ביטוי בתרחיש: «"+s[0]+"»?",c:s[1],o:ANS.filter(a=>a!=s[1]),e:s[1]+" ("+DEF[s[1]].t+"): "+DEF[s[1]].a}}if(k<.65)return{p:"איזו הגדרה מתאימה ל«"+x.q+"»?",c:x.a,o:ALL.filter(y=>y.a!=x.a).map(y=>y.a),e:x.q+" הוא "+x.t};if(k<.85)return{p:"איזה מושג מתאים להגדרה: «"+x.a+"»?",c:x.q,o:ALL.filter(y=>y.q!=x.q).map(y=>y.q),e:x.q+" הוא "+x.t};const T=[...new Set(ALL.map(y=>y.t))];return{p:"«"+x.q+"» הוא בגדר:",c:x.t,o:T.filter(t=>t!=x.t),e:x.q+": "+x.a}}
@@ -169,9 +224,215 @@ function pool(){const T=[...new Set(ALL.map(y=>y.t))],P=[];SC.forEach(s=>P.push(
 function quiz(n){if(typeof n!='number'){const P=pool().length;M.innerHTML=`<div class=card><h2>חידון אמריקאי</h2><p>מאגר של ${P} שאלות שונות. כמה שאלות בסבב?</p><br><div class=row>${[20,50,P].map(k=>`<button class=pri data-n=${k}>${k==P?'כל המאגר ('+P+')':k+' שאלות'}</button>`).join('')}</div></div>`;M.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>quiz(+b.dataset.n));return}Q=sh(pool()).slice(0,n);qn=0;qsc=0;qplay()}
 function qplay(){if(qn>=Q.length){M.innerHTML=`<div class=card><h2>סיימת! 🎉</h2><p style='font-size:1.4em'>${qsc} / ${Q.length}</p><br><button class=pri id=rs>חידון חדש</button></div>`;$('#rs').onclick=()=>quiz();return}const q=Q[qn],o=sh([q.c,...sh(q.o).slice(0,3)]);M.innerHTML=`<div class=bar><i style='width:${qn/Q.length*100}%'></i></div><div class=card><p class=mu>שאלה ${qn+1} מתוך ${Q.length} · ניקוד ${qsc}</p><h3 style='font-size:1.15em'>${q.p}</h3>${o.map(x=>`<button class=opt>${x}</button>`).join('')}</div><div id=fb></div>`;M.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{M.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.textContent==q.c)x.classList.add('ok')});if(b.textContent==q.c)qsc++;else b.classList.add('no');$('#fb').innerHTML=`<div class=card>${q.e}</div><button class=pri id=n>${qn+1==Q.length?'סיום':'הבא ←'}</button>`;$('#n').onclick=()=>{qn++;qplay()}})}
 let bo=[],bi=0;
-function bag(){if(!bo.length||bi>=bo.length||bi<0){bo=sh(SC);bi=0}const s=bo[bi];M.innerHTML=`<div class=sec><h2>שאלת בגרות ${bi+1} מתוך ${bo.length}</h2></div><div class=card><h3>הטקסט</h3><p>${s[0]}</p><br><h3>השאלות</h3><p>א. הציגו והסבירו את הזכות או העיקרון הדמוקרטי שבא לידי ביטוי בטקסט (לפי מבנה זהבה, עם ציטוט).</p><p>ב. ציינו לאיזה סוג הוא שייך: זכות טבעית, זכות אזרח, זכות קבוצה, עקרון דמוקרטי או מדיניות.</p></div><div class=card><p class=mu>זהבה: <b>ז</b>יהוי · <b>ה</b>גדרה · <b>ב</b>סיס (ציטוט) · <b>ה</b>סבר</p></div><textarea id=ta placeholder='כתבו כאן את התשובה…' aria-label=תשובה></textarea><div class=row style='margin-top:10px'><button class=chip id=pv>→ הקודמת</button><button class=pri id=sa>הצג תשובה לבדיקה</button><button class=chip id=nx>הבאה ←</button></div><div id=ans></div>`;$('#pv').onclick=()=>{bi--;if(bi<0)bi=bo.length-1;bag()};$('#nx').onclick=()=>{bi++;bag()};$('#sa').onclick=()=>{$('#ans').innerHTML=`<div class=card><span class=tg>${DEF[s[1]].t}</span><h3 style='display:inline'>${s[1]}</h3><p>${DEF[s[1]].a}</p></div>`}}
+const BG=[
+{
+"x": "גיל נעצר בחשד לעבירת רכוש. השוטרים ערכו חיפוש בדירתו בשעת לילה מאוחרת בלי להציג צו של בית משפט, והחזיקו אותו במעצר שלושה ימים רצופים. רק ביום הרביעי הובא בפני שופט. במהלך החקירה סירבו להפגישו עם עורך דין ולא הסבירו לו במה הוא חשוד. עורך דינו טען שמעשי המשטרה פוגעים בזכויותיו, גם אם בסופו של דבר יתברר שהוא אשם.",
+"q": "הציגו והסבירו זכות אדם אחת שנפגעה בטקסט, בהקשר של חקירה והליך משפטי.",
+"a": [
+"הליך הוגן",
+"פרטיות"
+],
+"c": "החזיקו אותו במעצר שלושה ימים רצופים"
+},
+{
+"x": "אתר חדשות פרסם כתבה על מנהלת בית ספר, ובה נטען שהיא מקבלת שוחד מהורים. הטענה הייתה שקרית ולא נבדקה כלל. לכתבה צורפו תמונות של המנהלת בחצר ביתה, שצולמו בלי ידיעתה. בימים שאחרי הפרסום הציפו גולשים את הרשת בקללות ובהשמצות כלפיה, והיא נאלצה לצאת לחופשה.",
+"q": "הציגו והסבירו שתי זכויות אדם שנפגעו בטקסט.",
+"a": [
+"שם טוב",
+"פרטיות",
+"כבוד"
+],
+"c": "הטענה הייתה שקרית ולא נבדקה כלל"
+},
+{
+"x": "חברת הייטק פרסמה מודעת דרושים לתפקיד מנהל פרויקטים. בראיון אמר המראיין למועמדת בת 52 שהחברה צעירה ומעדיפה עובדים עד גיל 40, אף שהמועמדת הייתה בעלת הניסיון וההשכלה הגבוהים ביותר מבין הפונים. כעבור שבוע התקבל לתפקיד מועמד צעיר, שכישוריו נמוכים משלה.",
+"q": "קבעו אם בטקסט מתקיימת אפליה פסולה, הבחנה או העדפה מתקנת, והסבירו את קביעתכם.",
+"a": [
+"אפליה פסולה"
+],
+"c": "מעדיפה עובדים עד גיל 40"
+},
+{
+"x": "משרד התחבורה פרסם מכרז לתפקיד טייס בחברת תעופה. בין תנאי הסף נקבע שעל המועמדים להיות בעלי ראייה תקינה ורישיון טיסה בתוקף. במקביל החליטה הרשות להתקין בתחנות הרכבת החדשות מעליות ומסלולי הליכה מותאמים לאנשים עם מוגבלות בניידות, כדי שיוכלו להשתמש בשירות כמו כל אדם.",
+"q": "בטקסט יש התייחסות שונה לאנשים שונים. הציגו והסבירו מדוע היא אינה נחשבת אפליה פסולה.",
+"a": [
+"הבחנה"
+],
+"c": "מעליות ומסלולי הליכה מותאמים"
+},
+{
+"x": "במשך שנים התקבלו לאוניברסיטה מעט מאוד סטודנטים מיישובי הפריפריה, בגלל תנאי לימוד ירודים בבתי הספר שם. כדי לצמצם את הפערים הקצתה האוניברסיטה מכסת מקומות לתלמידים מהפריפריה והציעה להם מלגות וקורס הכנה חינם, גם כאשר ציוני הקבלה שלהם נמוכים במעט מציוני יתר המועמדים.",
+"q": "הציגו והסבירו את המדיניות החברתית שבאה לידי ביטוי בטקסט, וציינו את מטרתה.",
+"a": [
+"העדפה מתקנת"
+],
+"c": "הקצתה האוניברסיטה מכסת מקומות לתלמידים מהפריפריה"
+},
+{
+"x": "ועד שכונה בעיר הקים רשימה לבחירות המקומיות, ושלושה מחבריו הציגו מועמדות לתפקיד חברי מועצה. באותו שבוע יצאו מאות תושבים להפגנה מול בניין העירייה כדי למחות על סגירת הספרייה השכונתית. ראש העירייה אמר בראיון שכל תושב רשאי להצביע ולהיבחר, ושלמחאה יש מקום מרכזי בדמוקרטיה.",
+"q": "הציגו והסבירו זכות פוליטית אחת (מזכויות האזרח) שבאה לידי ביטוי בטקסט.",
+"a": [
+"הזכות להיבחר",
+"זכות המחאה",
+"הזכות לבחור"
+],
+"c": "הציגו מועמדות לתפקיד חברי מועצה"
+},
+{
+"x": "בעיירה קטנה חיה קהילה דוברת שפה מיוחדת. הקהילה מנהלת מערכת חינוך משלה, שבה לומדים הילדים לפי מסורתם, ומסמכים רשמיים של המדינה מתפרסמים גם בשפתה. בני הקהילה רשאים לקיים את טקסי הדת שלהם בבית התפילה המקומי כרצונם.",
+"q": "הציגו והסבירו את סוג הזכות שבא לידי ביטוי בטקסט (זכות אדם, זכות פוליטית או זכות קבוצה).",
+"a": [
+"זכויות קבוצה / מיעוט"
+],
+"c": "מנהלת מערכת חינוך משלה"
+},
+{
+"x": "הממשלה החליטה להעלות את שיעור המס על בעלי הכנסות גבוהות מאוד, ולהשתמש בכסף כדי לממן שירותים לשכבות החלשות. בעלי עסקים מחו וטענו שהמדינה פוגעת ברכושם וביכולתם להשתמש בכסף שהרוויחו כרצונם. נציגי הממשלה השיבו שהמהלך נועד לצמצם פערים חברתיים וכלכליים.",
+"q": "הציגו והסבירו את המתח בין שני ערכים דמוקרטיים שבא לידי ביטוי בטקסט.",
+"a": [
+"המתח בין חירות לשוויון",
+"קניין"
+],
+"c": "לצמצם פערים חברתיים וכלכליים"
+},
+{
+"x": "הרוב בכנסת הציע חוק שיאסור על בני קבוצת מיעוט דתית להתפלל בציבור ויסגור את בתי הספר שלה. נציגי הרוב טענו שהחוק יתקבל בהצבעה דמוקרטית ושהרוב רשאי להחליט כרצונו. נציגי המיעוט טענו שהחוק פוגע בזכויותיהם ושהוא ניצול לרעה של כוחו של הרוב.",
+"q": "הציגו והסבירו את העיקרון הדמוקרטי המגביל את כוחו של הרוב, שבא לידי ביטוי בטקסט.",
+"a": [
+"עריצות הרוב",
+"הכרעת הרוב",
+"הכרעת רוב לגיטימית / לא לגיטימית"
+],
+"c": "ניצול לרעה של כוחו של הרוב"
+},
+{
+"x": "בכנסת התקיימה הצבעה על הצעת חוק. מתוך 120 חברי הכנסת נכחו באולם 90, ו־48 מהם הצביעו בעד ו־42 נגד. יו״ר הכנסת הודיע שההצעה התקבלה. אחד מחברי האופוזיציה טען שהחוק נוגע לעניין יסודי ולכן נדרש בו רוב של 80 חברי כנסת לפחות.",
+"q": "הציגו והסבירו את סוג הרוב שבו התקבלה ההצעה ואת סוג הרוב שדורש חבר האופוזיציה.",
+"a": [
+"רוב רגיל",
+"רוב מיוחד / מיוחס"
+],
+"c": "נדרש בו רוב של 80 חברי כנסת לפחות"
+},
+{
+"x": "בעיר פועלים ארבעה בתי ספר יסודיים: ממלכתי, ממלכתי־דתי, חרדי ובית ספר דמוקרטי הפועל לפי שיטה חינוכית ייחודית. במועצת העיר יושבים נציגי שבע מפלגות בעלות השקפות שונות. ארגון המורים וארגון האחיות מקיימים ישיבות קבועות כדי להגן על האינטרסים המקצועיים של חבריהם.",
+"q": "הציגו והסבירו עיקרון דמוקרטי אחד שבא לידי ביטוי בטקסט, וציינו תחום אחד לפחות שבו הוא מתבטא.",
+"a": [
+"פלורליזם"
+],
+"c": "נציגי שבע מפלגות בעלות השקפות שונות"
+},
+{
+"x": "בדיון פתוח בבית הספר על חוק הגיוס התעמתו תלמידים בעלי דעות הפוכות. למרות הרגשות החזקים נתן כל אחד לחבריו לסיים לדבר, איש לא קטע ולא קילל, ובסוף הדיון לחצו התלמידים ידיים וסיכמו שהם חלוקים אך ימשיכו להידבר. המורה אמר שמי שמקשיב גם למי שאינו מסכים עמו מונע אלימות.",
+"q": "הציגו והסבירו את העיקרון הדמוקרטי שבא לידי ביטוי בהתנהגות התלמידים.",
+"a": [
+"סובלנות"
+],
+"c": "נתן כל אחד לחבריו לסיים לדבר"
+},
+{
+"x": "בבחירות האחרונות הפסידה מפלגה אחת בהפרש קטן, ובכל זאת הודיע ראש המפלגה שהוא מקבל את תוצאות הבחירות ואת הממשלה שהוקמה כשלטון לגיטימי. הוא הוסיף שגם כשהמפלגה באופוזיציה כולם כפופים לאותם חוקים, ושהמאבק יתנהל בדרכים חוקיות בלבד.",
+"q": "הציגו והסבירו עיקרון דמוקרטי הקשור לבסיס משותף בין הקבוצות בחברה, שבא לידי ביטוי בטקסט.",
+"a": [
+"הסכמיות",
+"תרבות פוליטית דמוקרטית"
+],
+"c": "מקבל את תוצאות הבחירות"
+},
+{
+"x": "קבוצת סטודנטים ארגנה הפגנה נגד הצעת חוק חדשה ופרסמה כרזות ומאמרים בעיתון הקמפוס. בעקבות ההפגנה זימן הדיקן את המארגנים ודרש שיסירו את הפרסומים ושיפסיקו להתאסף, בטענה שהדעות שלהם אינן נוחות להנהלה.",
+"q": "הציגו והסבירו חופש אחד, הנגזר מהזכות לחירות, שנפגע בטקסט.",
+"a": [
+"חופש הביטוי"
+],
+"c": "דרש שיסירו את הפרסומים"
+},
+{
+"x": "בעיר הוחלט שבכל אירוע ציבורי, כולל יום ספורט בבית הספר, יתקיים טקס תפילה חובה לכל התלמידים. תלמידה שאינה מאמינה ביקשה לא להשתתף והופנתה למנהלת, שאמרה לה שאין לה ברירה.",
+"q": "זהו בטקסט את החופש שנפגע והסבירו מהי הפגיעה.",
+"a": [
+"חופש מדת",
+"חופש המחשבה והמצפון"
+],
+"c": "טקס תפילה חובה לכל התלמידים"
+},
+{
+"x": "שכן הרחיב את ביתו ובנה חדר חדש בחלק מהחצר של שכנו, בלי לבקש רשות. במקביל, מפתח אתרים העתיק קוד תוכנה שכתבה חברה אחרת ומכר אותו כשלו.",
+"q": "הציגו והסבירו את הזכות שנפגעה בטקסט, וציינו את שני סוגיה כפי שהם באים לידי ביטוי בו.",
+"a": [
+"קניין",
+"חומרי",
+"רוחני"
+],
+"c": "בנה חדר חדש בחלק מהחצר של שכנו"
+},
+{
+"x": "בשכונה התגברו מקרי האלימות ברחוב, ותושבים מספרים שהם חוששים לצאת מהבית בערב. התושבים פנו למשטרה בדרישה לתגבר את הסיורים, אך הרשויות לא נקטו שום פעולה והסבירו שאין להן תקציב. בשבוע שעבר נפצע אדם קשה בתקיפה.",
+"q": "הציגו והסבירו זכות אדם אחת שהמדינה אינה מגנה עליה בטקסט, וציינו מהי חובת המדינה כלפיה.",
+"a": [
+"חיים וביטחון"
+],
+"c": "חוששים לצאת מהבית בערב"
+},
+{
+"x": "אישה בעלת תואר בהנדסה ביקשה להקים עסק בתחום הבנייה. הרשות המקומית סירבה לתת לה רישיון עסק בטענה שהתחום ״אינו מתאים לנשים״. כמה שבועות אחר כך נמנע ממנה לצאת לחו״ל כדי להשתתף במכרז, בלי שניתנה לכך סיבה חוקית.",
+"q": "הציגו והסבירו שני חופשים, הנגזרים מהזכות לחירות, שנפגעו בטקסט.",
+"a": [
+"חופש העיסוק",
+"חופש התנועה"
+],
+"c": "סירבה לתת לה רישיון עסק"
+},
+{
+"x": "עיתון רצה לפרסם תחקיר על חבר כנסת, כולל פרטים על מצבו הרפואי. חבר הכנסת ביקש מבית המשפט לאסור את הפרסום בטענה שהוא פוגע בפרטיותו, והעיתון טען שהציבור זכאי לדעת ושחופש הביטוי והעיתונות עומדים בסכנה. השופט החליט לאפשר פרסום חלקי בלבד.",
+"q": "הציגו והסבירו את המנגנון להכרעה בהתנגשות בין זכויות שבא לידי ביטוי בטקסט.",
+"a": [
+"שקלול ואיזון",
+"פרטיות",
+"חופש הביטוי"
+],
+"c": "השופט החליט לאפשר פרסום חלקי בלבד"
+},
+{
+"x": "אדם טוען שהמדינה פגעה בזכותו לפרטיות כאשר פקידי מס ערכו חיפוש במשרדיו. בדיקת הפקידים העלתה שהוא לא דיווח על הכנסותיו במשך שנים ולא שילם מיסים כנדרש, ובית המשפט אישר את החיפוש.",
+"q": "הציגו והסבירו את הכלל בדבר הקשר בין זכויות לחובות שבא לידי ביטוי בטקסט.",
+"a": [
+"הקשר בין זכויות לחובות",
+"חובות האזרח"
+],
+"c": "לא שילם מיסים כנדרש"
+},
+{
+"x": "במדינה אחת קמה המדינה לפני מאות שנים, ואזרחיה, שמוצאם שונה, התלכדו סביב ערכי חירות ושוויון שנקבעו בחוקה. כולם מגדירים עצמם בני אותו לאום. במדינה אחרת, לעומת זאת, הלאום קדם להקמת המדינה: בני הלאום חולקים שפה, דת והיסטוריה, והם שהקימו את המדינה, שבה חיים גם מיעוטים שאינם בני אותו לאום.",
+"q": "הציגו והסבירו את שני סוגי הלאומיות שבאים לידי ביטוי בטקסט.",
+"a": [
+"לאומיות אזרחית",
+"לאומיות אתנית־תרבותית"
+],
+"c": "התלכדו סביב ערכי חירות ושוויון"
+},
+{
+"x": "בבחירות לראשות העיר נאסר על תושבים ממוצא מסוים להצביע, ועובדי העירייה נדרשו להצביע בגלוי לעיני הממונים עליהם. בנוסף נאסר על אחת המפלגות להפיץ עלונים וחומרי תעמולה, בעוד שאר המפלגות הורשו לעשות זאת.",
+"q": "הציגו והסבירו שניים מהתנאים לקיום בחירות דמוקרטיות שהופרו בטקסט.",
+"a": [
+"כלליות",
+"חשאיות",
+"התמודדות חופשית"
+],
+"c": "להצביע בגלוי לעיני הממונים עליהם"
+},
+{
+"x": "במדינה שבה שיטת הבחירות ארצית, יחסית ורשימתית נבחרו לפרלמנט שתים עשרה מפלגות. מפלגה קטנה בת שלושה חברים הודיעה שתצביע נגד התקציב אם לא יתמלאו דרישותיה, והממשלה עמדה בפני קריסה. תושבת סיפרה שהיא אינה מכירה אף אחד מחברי הפרלמנט שייצגו את אזורה.",
+"q": "הציגו והסבירו חיסרון אחד של שיטת הבחירות שבא לידי ביטוי בטקסט.",
+"a": [
+"חסרונות השיטה"
+],
+"c": "תצביע נגד התקציב אם לא יתמלאו דרישותיה"
+}
+];
+function bag(){if(!bo.length||bi>=bo.length||bi<0){bo=sh(BG);bi=0}const s=bo[bi];M.innerHTML=`<div class=sec><h2>שאלת בגרות ${bi+1} מתוך ${bo.length}</h2></div><div class=card><h3>הטקסט</h3><p>${s.x}</p><br><h3>השאלה</h3><p>${s.q}</p></div><div class=card><p class=mu>זהבה: <b>ז</b>יהוי · <b>ה</b>גדרה · <b>ב</b>סיס (ציטוט) · <b>ה</b>סבר</p></div><textarea id=ta placeholder='כתבו כאן את התשובה…' aria-label=תשובה></textarea><div class=row style='margin-top:10px'><button class=chip id=pv>→ הקודמת</button><button class=pri id=sa>הצג תשובה לבדיקה</button><button class=chip id=nx>הבאה ←</button></div><div id=ans></div>`;$('#pv').onclick=()=>{bi--;if(bi<0)bi=bo.length-1;bag()};$('#nx').onclick=()=>{bi++;bag()};$('#sa').onclick=()=>{$('#ans').innerHTML=`<div class=card><h3>ציטוט מתאים מהטקסט</h3><p>«${s.c}»</p></div>`+(s.a.length>1?`<p class=mu>תשובות אפשריות. בוחרים מתוכן לפי מה שהשאלה מבקשת:</p>`:'')+s.a.map(n=>`<div class=card><span class=tg>${DEF[n].t}</span><h3 style='display:inline'>${n}</h3><p>${DEF[n].a}</p></div>`).join('')}}
 let study=ld('st')=='1';const _l=learn;
-learn=function(){_l();const p=M.querySelector('.mu');p.insertAdjacentHTML('afterend',`<div class=tools><button class='${study?'pri':'chip'}' id=sm aria-pressed='${study}'>🙈 מצב למידה: ${study?'פעיל':'כבוי'}</button>${study?`<button class=chip id=ra>👁 חשוף הכל</button><button class=chip id=ha>הסתר הכל</button>`:''}</div>`);$('#sm').onclick=()=>{study=!study;sv('st',study?'1':'');learn()};if(!study)return;p.textContent='מצב למידה: רק השם מוצג. לחצו על כרטיס כדי לחשוף את ההגדרה, ולחצו שוב כדי להסתיר.';const cs=M.querySelectorAll('.card');cs.forEach(c=>{c.classList.add('blr');c.tabIndex=0;c.setAttribute('role','button');c.onclick=()=>c.classList.toggle('open');c.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();c.click()}}});$('#ra').onclick=()=>cs.forEach(c=>c.classList.add('open'));$('#ha').onclick=()=>cs.forEach(c=>c.classList.remove('open'))};
+learn=function(){_l();M.classList.toggle('stm',study);const p=M.querySelector('.mu');p.insertAdjacentHTML('afterend',`<div class=tools><button class='${study?'pri':'chip'}' id=sm aria-pressed='${study}'>🙈 מצב למידה: ${study?'פעיל':'כבוי'}</button>${study?`<button class=chip id=ra>👁 חשוף הכל</button><button class=chip id=ha>הסתר הכל</button>`:''}</div>`);$('#sm').onclick=()=>{study=!study;sv('st',study?'1':'');learn()};if(!study)return;p.textContent='מצב למידה: רק השם מוצג. לחצו על כרטיס כדי לחשוף את ההגדרה, ולחצו שוב כדי להסתיר.';const cs=M.querySelectorAll('.bi');cs.forEach(c=>{c.classList.add('blr');c.tabIndex=0;c.setAttribute('role','button');c.onclick=()=>c.classList.toggle('open');c.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();c.click()}}});$('#ra').onclick=()=>cs.forEach(c=>c.classList.add('open'));$('#ha').onclick=()=>cs.forEach(c=>c.classList.remove('open'))};
 const warn=()=>{let d=document.getElementById('wr');if(!d){d=document.createElement('div');d.id='wr';d.setAttribute('role','alertdialog');d.setAttribute('aria-live','assertive');d.style.cssText='position:fixed;inset:0;display:grid;place-items:center;background:#0009;z-index:99';d.innerHTML=`<div style='background:var(--card);color:var(--tx);border:2px solid var(--bad);border-radius:16px;padding:20px 26px;max-width:320px;text-align:center'><h3 style='margin:0 0 6px;color:var(--bad)'>⚠️ פעולה חסומה</h3><p style='margin:0 0 14px'>בדיקת האתר והעתקת הקוד אינן מותרות.</p><button class=pri id=wo>הבנתי</button></div>`;document.body.appendChild(d);d.querySelector('#wo').onclick=()=>{d.style.display='none'}}d.style.display='grid'};
 document.addEventListener('contextmenu',e=>{e.preventDefault();warn()});
 document.addEventListener('keydown',e=>{const c=e.ctrlKey||e.metaKey,k=e.code;if(e.key=='F12'||(c&&e.shiftKey&&['KeyI','KeyJ','KeyC'].includes(k))||(c&&!e.shiftKey&&['KeyI','KeyU','KeyS'].includes(k))||(e.metaKey&&e.altKey&&['KeyI','KeyU','KeyJ','KeyC'].includes(k))){e.preventDefault();e.stopPropagation();warn()}},true);
@@ -180,7 +441,7 @@ const srcs=[['https://api.counterapi.dev/v1/elad-civics-master/visitors'+(seen?'
 let n,err='';for(const [u,f] of srcs){try{const r=await fetch(u);if(!r.ok)throw new Error('HTTP '+r.status);const v=f(await r.json());if(typeof v=='number'){n=v;break}}catch(e){err=e.message;console.warn('visitor counter failed:',u,e)}}
 if(typeof n=='number'){vn.textContent=n.toLocaleString('he-IL');if(!seen){try{localStorage.setItem('vis','1')}catch(e){}}}else{vn.textContent='לא זמין כרגע';vn.title=err}})();
 (()=>{
-const DB='https://ezrachut-master-default-rtdb.europe-west1.firebasedatabase.app'; /* הדביקו כאן את כתובת ה-Realtime Database, למשל https://my-project-default-rtdb.europe-west1.firebasedatabase.app */
+const DB=FB.db;
 const q=s=>document.querySelector(s),W=q('#cb'),B=q('#cbb'),P=q('#cbp'),L=q('#cbl'),S=q('#cbs'),I=q('#cbi'),G=q('#cbg'),N=q('#cbn'),NM=q('#cbname');
 const st=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
 const base=DB.replace(/\/+$/,'');let uid=st('cbu');if(!uid){uid=Math.random().toString(36).slice(2,12);st('cbu',uid)}
@@ -202,12 +463,40 @@ q('#cbx').onclick=()=>toggle(false);
 let keys='',seen=st('cbs')||'',last=0,busy=false;
 function toggle(f){const o=f===undefined?P.hidden:f;P.hidden=!o;if(o){fit();load(true);setTimeout(()=>I.focus(),50)}}
 function fmt(ts){if(!ts)return'';const t=new Date(ts),n=new Date(),h=t.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});return t.toDateString()==n.toDateString()?h:t.toLocaleDateString('he-IL',{day:'numeric',month:'numeric'})+' '+h}
-function render(a){const k=a.length?a[a.length-1][0]:'';if(k!==keys){const near=L.scrollHeight-L.scrollTop-L.clientHeight<80;L.textContent='';a.forEach(([id,m])=>{const e=document.createElement('div');e.className='cm'+(m.u==uid?' me':'');const sm=document.createElement('small');sm.textContent=(m.n||'אנונימי')+' · '+fmt(m.ts);const tx=document.createElement('span');tx.textContent=m.t;e.append(sm,tx);L.appendChild(e)});if(near||!keys)L.scrollTop=L.scrollHeight;keys=k}
+function render(a){const k=a.length?a[a.length-1][0]:'',sg=a.map(x=>x[0]).join();if(sg!==keys){const near=L.scrollHeight-L.scrollTop-L.clientHeight<80;L.textContent='';a.forEach(([id,m])=>{const e=document.createElement('div');e.className='cm'+(m.u==uid?' me':'');const sm=document.createElement('small');sm.textContent=(m.n||'אנונימי')+' · '+fmt(m.ts);const tx=document.createElement('span');tx.textContent=m.t;e.append(sm,tx);L.appendChild(e)});if(near||!keys)L.scrollTop=L.scrollHeight;keys=sg}
 if(!P.hidden){if(k){seen=k;st('cbs',k)}N.hidden=true}else{const c=a.filter(x=>x[0]>seen).length;N.hidden=!c||!seen;N.textContent=c>99?'99+':c;if(!seen&&k){seen=k;st('cbs',k)}}}
 async function load(force){if(!base){S.textContent='הצ\'אט עדיין לא מחובר לשרת.';G.disabled=true;I.disabled=true;return}if(busy&&!force)return;busy=true;try{const r=await fetch(base+'/messages.json?orderBy=%22%24key%22&limitToLast=100');if(!r.ok)throw new Error(r.status);const j=await r.json();render(Object.entries(j||{}).sort((a,b)=>a[0]<b[0]?-1:1));if(S.dataset.e){S.textContent='';delete S.dataset.e}}catch(e){S.textContent='אין חיבור לצ\'אט כרגע.';S.dataset.e=1;console.warn('chat load failed',e)}busy=false}
 async function send(){const t=I.value.trim();if(!t||!base)return;if(Date.now()-last<3000){S.textContent='חכו רגע בין הודעה להודעה.';return}last=Date.now();G.disabled=true;const n=(NM.value.trim()||'אנונימי').slice(0,20);st('cbn',NM.value.trim().slice(0,20));try{const r=await fetch(base+'/messages.json',{method:'POST',body:JSON.stringify({n,t:t.slice(0,300),u:uid,ts:{'.sv':'timestamp'}})});if(!r.ok)throw new Error(r.status);I.value='';S.textContent='';await load(true);L.scrollTop=L.scrollHeight}catch(e){S.textContent='השליחה נכשלה, נסו שוב.';console.warn('chat send failed',e)}G.disabled=false}
 G.onclick=send;I.onkeydown=e=>{if(e.key=='Enter'){e.preventDefault();send()}};
 load();setInterval(()=>{if(!document.hidden)load()},5000);
+})();
+(()=>{
+const base=(FB.db||'').replace(/\/+$/,'');
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e};
+/* התראות מהמנהל: מוצגות לכל מי שנמצא באתר באותו רגע */
+let seen=null;
+function showAlert(t){const o=el('div','ov');o.style.zIndex=130;o.setAttribute('role','alertdialog');const b=el('div'),p=el('p','',t);p.style.whiteSpace='pre-wrap';const k=el('button','pri','הבנתי');k.onclick=()=>o.remove();b.append(el('h3','','📢 הודעה מהמנהל'),p,k);o.append(b);document.body.appendChild(o)}
+async function poll(){if(!base||document.hidden)return;try{const r=await fetch(base+'/alert.json');if(!r.ok)return;const a=await r.json(),id=a&&a.ts;if(seen===null){seen=id||0;return}if(id&&id!==seen){seen=id;if(Date.now()-id<6e5)showAlert(a.t)}}catch(e){}}
+poll();setInterval(poll,5000);document.addEventListener('visibilitychange',poll);
+/* כניסת מנהל: האימות מול Firebase Authentication, הסיסמה לא נשמרת בקוד */
+let tok=null,pw='',exp=0;
+async function login(p){const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+encodeURIComponent(FB.key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:FB.admin,password:p,returnSecureToken:true})});const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);tok=j.idToken;exp=Date.now()+Math.max(+j.expiresIn-120,60)*1000;pw=p}
+async function api(m,path,body,q){if(!tok||Date.now()>exp)await login(pw);const r=await fetch(base+path+'.json?auth='+encodeURIComponent(tok)+(q||''),{method:m,body:body===undefined?undefined:JSON.stringify(body)});if(!r.ok)throw new Error(r.status);return r.json()}
+function overlay(){const o=el('div','ov'),b=el('div');o.append(b);o.addEventListener('mousedown',e=>{if(e.target===o)o.remove()});document.body.appendChild(o);return[o,b]}
+function loginUI(){const[o,b]=overlay(),u=el('input'),p=el('input'),er=el('div','er'),go=el('button','pri','כניסה');u.placeholder='שם משתמש';u.autocomplete='username';p.type='password';p.placeholder='סיסמה';p.autocomplete='current-password';
+const run=async()=>{er.textContent='';if(!FB.key){er.textContent='חסר Web API Key בקוד (FB.key).';return}if(u.value.trim().toLowerCase()!=='elad'){er.textContent='שם משתמש או סיסמה שגויים.';return}go.disabled=true;try{await login(p.value);o.remove();panel()}catch(e){const m=e.message||'';er.textContent=/INVALID|EMAIL_NOT_FOUND|PASSWORD/.test(m)?'שם משתמש או סיסמה שגויים.':/OPERATION_NOT_ALLOWED/.test(m)?'התחברות במייל וסיסמה לא מופעלת ב-Firebase.':/TOO_MANY/.test(m)?'יותר מדי ניסיונות, נסו שוב בעוד כמה דקות.':'ההתחברות נכשלה: '+m}go.disabled=false};
+go.onclick=run;p.onkeydown=e=>{if(e.key=='Enter')run()};b.append(el('h3','','🔐 כניסת מנהל'),u,p,er,go);setTimeout(()=>u.focus(),50)}
+function panel(){const[o,b]=overlay();
+const ta=el('textarea'),st=el('div','er'),send=el('button','pri','📢 שלח לכולם');ta.maxLength=300;ta.placeholder='ההודעה תקפוץ לכל מי שנמצא באתר עכשיו…';
+send.onclick=async()=>{const t=ta.value.trim();if(!t)return;send.disabled=true;st.style.color='';st.textContent='';try{await api('PUT','/alert',{t,ts:{'.sv':'timestamp'}});ta.value='';st.style.color='#16a34a';st.textContent='נשלח ✔'}catch(e){st.textContent='השליחה נכשלה ('+e.message+'). בדקו את ה-Rules.'}send.disabled=false};
+const list=el('div'),cs=el('div','er'),rf=el('button','chip','🔄 רענון'),da=el('button','chip','🗑 מחק את כל הצ׳אט');
+async function load(){list.textContent='טוען…';cs.textContent='';try{const j=await api('GET','/messages',undefined,'&orderBy=%22%24key%22&limitToLast=100')||{};const a=Object.entries(j).sort((x,y)=>x[0]<y[0]?1:-1);list.textContent='';if(!a.length){list.textContent='אין הודעות בצ׳אט.';return}
+a.forEach(([id,m])=>{const r=el('div','am'),sp=el('span','',(m.n||'אנונימי')+': '+m.t),d=el('button','','🗑');d.title='מחיקה';d.onclick=async()=>{d.disabled=true;try{await api('DELETE','/messages/'+id);r.remove()}catch(e){cs.textContent='המחיקה נכשלה ('+e.message+')';d.disabled=false}};r.append(sp,d);list.appendChild(r)})}catch(e){list.textContent='';cs.textContent='הטעינה נכשלה ('+e.message+')'}}
+rf.onclick=load;da.onclick=async()=>{if(!confirm('למחוק את כל הודעות הצ׳אט? אי אפשר לשחזר.'))return;try{await api('DELETE','/messages');load()}catch(e){cs.textContent='המחיקה נכשלה ('+e.message+')'}};
+const x=el('button','chip','סגירה'),lo=el('button','chip','התנתקות');x.onclick=()=>o.remove();lo.onclick=()=>{tok=null;pw='';o.remove()};
+const rw=el('div','rw');rw.append(rf,da);const rw2=el('div','rw');rw2.append(x,lo);
+b.append(el('h3','','🛠 פאנל אדמין'),el('b','','שליחת הודעה לכל המשתמשים'),ta,send,st,el('hr'),el('b','','הצ׳אט הגלובלי (100 ההודעות האחרונות)'),rw,cs,list,el('hr'),rw2);load()}
+document.getElementById('adm').onclick=()=>tok?panel():loginUI();
 })();
 go("learn");
 </script></body></html>
